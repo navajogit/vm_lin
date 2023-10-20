@@ -130,8 +130,7 @@ do
         if ! dpkg -s dbus-x11 >/dev/null 2>&1; then
             sudo apt install dbus-x11 -y
         fi
-
-        dbus-launch sudo -E -u $USER env "DISPLAY=:0" gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
+        gsettings set org.gnome.desktop.background picture-uri-dark "file://$wallpaperPath"
         echo "DONE"
     else
         clear
