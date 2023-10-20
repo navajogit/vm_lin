@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -8,7 +8,7 @@ clear
 while true
 do
     printf "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
-    read insthist
+    read -r insthist
     if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]
     then
         echo ""
@@ -22,7 +22,7 @@ do
 done
 
 # ipv6 to ipv4
-ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
+ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method 2>/dev/null)
 
 if [ "$ipv6_setting" != "'disabled'" ]
 then
@@ -34,7 +34,7 @@ then
 fi
 
 printf "${GREEN}Install FIREWALL? (Y/N)${NC}"
-read fwall
+read -r fwall
 if [ "$fwall" = "Y" ] || [ "$fwall" = "y" ]
 then
     # setup basic firewall
@@ -56,7 +56,7 @@ sudo apt install curl -y
 clear
 
 printf "${GREEN}Install WINDSCRIBE? (Y/N)${NC}"
-read wscribe
+read -r wscribe
 if [ "$wscribe" = "Y" ] || [ "$wscribe" = "y" ]
 then
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
@@ -70,7 +70,7 @@ else
 fi
 
 printf "${GREEN}Install PORTMASTER? (Y/N)${NC}"
-read pmaster
+read -r pmaster
 if [ "$pmaster" = "Y" ] || [ "$pmaster" = "y" ]
 then
     sudo apt install libnetfilter-queue1 -y
@@ -84,7 +84,7 @@ else
 fi
 
 printf "${GREEN}Install BRAVE-BROWSER? (Y/N)${NC}"
-read braveb
+read -r braveb
 if [ "$braveb" = "Y" ] || [ "$braveb" = "y" ]
 then
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -98,7 +98,7 @@ else
 fi
 
 printf "${GREEN}Install GUEST ADDITIONS? (Y/N)${NC}"
-read gadd
+read -r gadd
 if [ "$gadd" = "Y" ] || [ "$gadd" = "y" ]
 then
     sudo apt install liburing2 -y
@@ -120,13 +120,13 @@ wallpaperUrls=$(curl -s $githubRepoUrl)
 while true
 do
     printf "${GREEN}Do you want to change the desktop wallpaper? (Y/N)${NC}"
-    read changeWallpaper
+    read -r changeWallpaper
     if [ "$changeWallpaper" = "Y" ] || [ "$changeWallpaper" = "y" ]
     then
         # Choose a random URL
         randomUrl=$(shuf -n 1 <<<$wallpaperUrls)
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
-        wget -O $wallpaperPath $randomUrl
+        wget -O "$wallpaperPath" "$randomUrl"
         gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
         echo "DONE"
     else
@@ -137,7 +137,7 @@ do
 done
 
 printf "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
-read insthist
+read -r insthist
 if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]
 then
     echo ""
