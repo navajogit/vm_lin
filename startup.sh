@@ -125,7 +125,7 @@ do
         randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
         wget -O "$wallpaperPath" "$randomUrl"
-        sudo gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
+        dbus-launch sudo -E -u $USER env "DISPLAY=:0" gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
         echo "DONE"
     else
         clear
@@ -133,6 +133,7 @@ do
         break
     fi
 done
+
 
 echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
 read insthist
