@@ -18,15 +18,27 @@ do
 done
 
 # ipv6 to ipv4
+
 ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
-if [[ "$ipv6_setting" != "'disabled'" ]]; then
-    echo -e "\033[0;32mchanging ipv6 to ipv4\033[0m\n"
-    connection_name=$(nmcli -t -f NAME con show --active)
-    sudo nmcli connection modify "$connection_name" ipv6.method disabled
-    sudo systemctl restart NetworkManager
-    sleep 2
+if [ "$ipv6_setting" != "'disabled'" ]; then
+    echo "Zmienianie ustawienia IPv6 na 'disabled'..."    
+    gsettings set org.gnome.system.network ipv6-method 'disabled'    
+    echo "Ustawienie IPv6 zostało zmienione na 'disabled'."
+else
+    echo "Ustawienie IPv6 jest już ustawione na 'disabled'."
 fi
+
+nmcli connection modify "Wired connection 1" ipv6.method disabled
+
+
+sudo systemctl restart NetworkManager
+
+echo "'$connection_name' "
+
+sleep 1
+
+
 
 echo -e "\033[0;32mInstall FIREWALL? (Y/N)\033[0m"
 read fwall
@@ -125,11 +137,6 @@ do
         randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
         wget -O "$wallpaperPath" "$randomUrl"
-
-        # Sprawdzenie czy dbus-x11 jest zainstalowane w pętli
-        if ! dpkg -s dbus-x11 >/dev/null 2>&1; then
-            sudo apt install dbus-x11 -y
-        fi
         gsettings set org.gnome.desktop.background picture-uri-dark "file://$wallpaperPath"
         echo "DONE"
     else
@@ -138,7 +145,6 @@ do
         break
     fi
 done
-
 
 
 
