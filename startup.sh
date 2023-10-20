@@ -9,7 +9,7 @@ while true
 do
     echo -e "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
     read insthist
-    if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]; then
+    if [[ "$insthist" =~ ^[Yy]$ ]]; then
         echo ""
         echo "install history:"
         cat /var/log/dpkg.log.1 /var/log/dpkg.log | grep " install " | nl
@@ -23,7 +23,7 @@ done
 # ipv6 to ipv4
 ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
-if [ "$ipv6_setting" != "'disabled'" ]; then
+if [[ "$ipv6_setting" != "'disabled'" ]]; then
     echo -e "${GREEN}changing ipv6 to ipv4${NC}\n"
     connection_name=$(nmcli -t -f NAME con show --active)
     nmcli connection modify "$connection_name" ipv6.method disabled
@@ -33,7 +33,7 @@ fi
 
 echo -e "${GREEN}Install FIREWALL? (Y/N)${NC}"
 read fwall
-if [ "$fwall" = "Y" ] || [ "$fwall" = "y" ]; then
+if [[ "$fwall" =~ ^[Yy]$ ]]; then
     # setup basic firewall
     sudo apt install ufw -y
     sudo ufw enable
@@ -54,7 +54,7 @@ clear
 
 echo -e "${GREEN}Install WINDSCRIBE? (Y/N)${NC}"
 read wscribe
-if [ "$wscribe" = "Y" ] || [ "$wscribe" = "y" ]; then
+if [[ "$wscribe" =~ ^[Yy]$ ]]; then
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
     sudo dpkg -i ~/Downloads/windscribe.deb
     # setup windscribe
@@ -67,7 +67,7 @@ fi
 
 echo -e "${GREEN}Install PORTMASTER? (Y/N)${NC}"
 read pmaster
-if [ "$pmaster" = "Y" ] || [ "$pmaster" = "y" ]; then
+if [[ "$pmaster" =~ ^[Yy]$ ]]; then
     sudo apt install libnetfilter-queue1 -y
     wget "https://updates.safing.io/latest/linux_amd64/packages/portmaster-installer.deb" -O ~/Downloads/portmaster.deb
     sudo dpkg -i ~/Downloads/portmaster.deb
@@ -80,7 +80,7 @@ fi
 
 echo -e "${GREEN}Install BRAVE-BROWSER? (Y/N)${NC}"
 read braveb
-if [ "$braveb" = "Y" ] || [ "$braveb" = "y" ]; then
+if [[ "$braveb" =~ ^[Yy]$ ]]; then
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     sudo apt update -y
@@ -93,7 +93,7 @@ fi
 
 echo -e "${GREEN}Install GUEST ADDITIONS? (Y/N)${NC}"
 read gadd
-if [ "$gadd" = "Y" ] || [ "$gadd" = "y" ]; then
+if [[ "$gadd" =~ ^[Yy]$ ]]; then
     sudo apt install liburing2 -y
     sudo apt install qemu-guest-agent -y
     sudo apt-get install spice-vdagent -y
@@ -114,7 +114,7 @@ while true
 do
     echo -e "${GREEN}Do you want to change the desktop wallpaper? (Y/N)${NC}"
     read changeWallpaper
-    if [ "$changeWallpaper" = "Y" ] || [ "$changeWallpaper" = "y" ]; then
+    if [[ "$changeWallpaper" =~ ^[Yy]$ ]]; then
         # Choose a random URL
         randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
@@ -130,7 +130,7 @@ done
 
 echo -e "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
 read insthist
-if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]; then
+if [[ "$insthist" =~ ^[Yy]$ ]]; then
     echo ""
     echo "install history:"
     cat /var/log/dpkg.log.1 /var/log/dpkg.log | grep " install " | nl
