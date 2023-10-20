@@ -27,8 +27,6 @@ ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 if [ "$ipv6_setting" != "'disabled'" ]
 then
     printf "${GREEN}changing ipv6 to ipv4${NC}\n"
-    gsettings set org.gnome.system.network ipv6-method 'disabled'
-    # second method:
     connection_name=$(nmcli -t -f NAME con show --active)
     nmcli connection modify "$connection_name" ipv6.method disabled
     sudo systemctl restart NetworkManager
