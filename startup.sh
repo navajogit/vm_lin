@@ -1,14 +1,10 @@
 #!/bin/bash
-set -x
-
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
 
 clear
 
 while true
 do
-    echo -e "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
+    echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
     read insthist
     if [[ "$insthist" =~ ^[Yy]$ ]]; then
         echo ""
@@ -25,14 +21,14 @@ done
 ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
 if [[ "$ipv6_setting" != "'disabled'" ]]; then
-    echo -e "${GREEN}changing ipv6 to ipv4${NC}\n"
+    echo -e "\033[0;32mchanging ipv6 to ipv4\033[0m\n"
     connection_name=$(nmcli -t -f NAME con show --active)
     nmcli connection modify "$connection_name" ipv6.method disabled
     sudo systemctl restart NetworkManager
     sleep 2
 fi
 
-echo -e "${GREEN}Install FIREWALL? (Y/N)${NC}"
+echo -e "\033[0;32mInstall FIREWALL? (Y/N)\033[0m"
 read fwall
 if [[ "$fwall" =~ ^[Yy]$ ]]; then
     # setup basic firewall
@@ -53,7 +49,7 @@ fi
 sudo apt install curl -y
 clear
 
-echo -e "${GREEN}Install WINDSCRIBE? (Y/N)${NC}"
+echo -e "\033[0;32mInstall WINDSCRIBE? (Y/N)\033[0m"
 read wscribe
 if [[ "$wscribe" =~ ^[Yy]$ ]]; then
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
@@ -66,7 +62,7 @@ else
     echo "SKIPPING..."
 fi
 
-echo -e "${GREEN}Install PORTMASTER? (Y/N)${NC}"
+echo -e "\033[0;32mInstall PORTMASTER? (Y/N)\033[0m"
 read pmaster
 if [[ "$pmaster" =~ ^[Yy]$ ]]; then
     sudo apt install libnetfilter-queue1 -y
@@ -79,7 +75,7 @@ else
     echo "SKIPPING..."
 fi
 
-echo -e "${GREEN}Install BRAVE-BROWSER? (Y/N)${NC}"
+echo -e "\033[0;32mInstall BRAVE-BROWSER? (Y/N)\033[0m"
 read braveb
 if [[ "$braveb" =~ ^[Yy]$ ]]; then
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -92,7 +88,7 @@ else
     echo "SKIPPING..."
 fi
 
-echo -e "${GREEN}Install GUEST ADDITIONS? (Y/N)${NC}"
+echo -e "\033[0;32mInstall GUEST ADDITIONS? (Y/N)\033[0m"
 read gadd
 if [[ "$gadd" =~ ^[Yy]$ ]]; then
     sudo apt install liburing2 -y
@@ -113,7 +109,7 @@ wallpaperUrls=$(curl -s "$githubRepoUrl")
 
 while true
 do
-    echo -e "${GREEN}Do you want to change the desktop wallpaper? (Y/N)${NC}"
+    echo -e "\033[0;32mDo you want to change the desktop wallpaper? (Y/N)\033[0m"
     read changeWallpaper
     if [[ "$changeWallpaper" =~ ^[Yy]$ ]]; then
         # Choose a random URL
@@ -129,7 +125,7 @@ do
     fi
 done
 
-echo -e "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
+echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
 read insthist
 if [[ "$insthist" =~ ^[Yy]$ ]]; then
     echo ""
@@ -139,5 +135,3 @@ else
     clear
     echo "DONE"
 fi
-
-EOF
