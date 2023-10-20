@@ -139,3 +139,5 @@ else
     clear
     echo "DONE"
 fi
+
+EOF
