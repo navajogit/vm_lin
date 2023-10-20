@@ -125,6 +125,12 @@ do
         randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
         wget -O "$wallpaperPath" "$randomUrl"
+
+        # Sprawdzenie czy dbus-x11 jest zainstalowane w pętli
+        if ! dpkg -s dbus-x11 >/dev/null 2>&1; then
+            sudo apt install dbus-x11 -y
+        fi
+
         dbus-launch sudo -E -u $USER env "DISPLAY=:0" gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
         echo "DONE"
     else
@@ -133,6 +139,7 @@ do
         break
     fi
 done
+
 
 
 
