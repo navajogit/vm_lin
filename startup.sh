@@ -2,8 +2,6 @@
 
 clear
 
-while true
-do
     echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
     read insthist
     if [[ "$insthist" =~ ^[Yy]$ ]]; then
@@ -15,8 +13,7 @@ do
         echo "DONE"
         break
     fi
-done
-
+    
 # ipv6 to ipv4
 ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
