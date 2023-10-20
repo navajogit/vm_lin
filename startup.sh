@@ -2,6 +2,8 @@
 
 clear
 
+while true
+do
     echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
     read insthist
     if [[ "$insthist" =~ ^[Yy]$ ]]; then
@@ -13,14 +15,15 @@ clear
         echo "DONE"
         break
     fi
-    
+done
+
 # ipv6 to ipv4
 ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
 if [[ "$ipv6_setting" != "'disabled'" ]]; then
     echo -e "\033[0;32mchanging ipv6 to ipv4\033[0m\n"
     connection_name=$(nmcli -t -f NAME con show --active)
-    nmcli connection modify "$connection_name" ipv6.method disabled
+    sudo nmcli connection modify "$connection_name" ipv6.method disabled
     sudo systemctl restart NetworkManager
     sleep 2
 fi
@@ -97,8 +100,17 @@ else
     echo "SKIPPING..."
 fi
 
-# installing git
-sudo apt install git -y
+echo -e "\033[0;32mInstall GIT? (Y/N)\033[0m"
+read giti
+if [[ "$giti" =~ ^[Yy]$ ]]; then
+    sudo apt install git -y
+    echo "DONE"
+else
+    clear
+    echo "SKIPPING..."
+fi
+
+
 
 # wallpapers
 githubRepoUrl="https://raw.githubusercontent.com/navajogit/vm_lin/main/sample_list.txt"
@@ -113,7 +125,7 @@ do
         randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
         wget -O "$wallpaperPath" "$randomUrl"
-        gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
+        sudo gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
         echo "DONE"
     else
         clear
