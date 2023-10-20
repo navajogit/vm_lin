@@ -8,7 +8,7 @@ clear
 while true
 do
     printf "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
-    read -r insthist
+    read insthist
     if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]; then
         echo ""
         echo "install history:"
@@ -21,7 +21,7 @@ do
 done
 
 # ipv6 to ipv4
-ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method 2>/dev/null)
+ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
 if [ "$ipv6_setting" != "'disabled'" ]; then
     printf "${GREEN}changing ipv6 to ipv4${NC}\n"
@@ -32,7 +32,7 @@ if [ "$ipv6_setting" != "'disabled'" ]; then
 fi
 
 printf "${GREEN}Install FIREWALL? (Y/N)${NC}"
-read -r fwall
+read fwall
 if [ "$fwall" = "Y" ] || [ "$fwall" = "y" ]; then
     # setup basic firewall
     sudo apt install ufw -y
@@ -53,7 +53,7 @@ sudo apt install curl -y
 clear
 
 printf "${GREEN}Install WINDSCRIBE? (Y/N)${NC}"
-read -r wscribe
+read wscribe
 if [ "$wscribe" = "Y" ] || [ "$wscribe" = "y" ]; then
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
     sudo dpkg -i ~/Downloads/windscribe.deb
@@ -66,7 +66,7 @@ else
 fi
 
 printf "${GREEN}Install PORTMASTER? (Y/N)${NC}"
-read -r pmaster
+read pmaster
 if [ "$pmaster" = "Y" ] || [ "$pmaster" = "y" ]; then
     sudo apt install libnetfilter-queue1 -y
     wget "https://updates.safing.io/latest/linux_amd64/packages/portmaster-installer.deb" -O ~/Downloads/portmaster.deb
@@ -79,7 +79,7 @@ else
 fi
 
 printf "${GREEN}Install BRAVE-BROWSER? (Y/N)${NC}"
-read -r braveb
+read braveb
 if [ "$braveb" = "Y" ] || [ "$braveb" = "y" ]; then
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
@@ -92,7 +92,7 @@ else
 fi
 
 printf "${GREEN}Install GUEST ADDITIONS? (Y/N)${NC}"
-read -r gadd
+read gadd
 if [ "$gadd" = "Y" ] || [ "$gadd" = "y" ]; then
     sudo apt install liburing2 -y
     sudo apt install qemu-guest-agent -y
@@ -113,10 +113,10 @@ wallpaperUrls=$(curl -s "$githubRepoUrl")
 while true
 do
     printf "${GREEN}Do you want to change the desktop wallpaper? (Y/N)${NC}"
-    read -r changeWallpaper
+    read changeWallpaper
     if [ "$changeWallpaper" = "Y" ] || [ "$changeWallpaper" = "y" ]; then
         # Choose a random URL
-        randomUrl=$(shuf -n 1 <<<"$wallpaperUrls")
+        randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
         wget -O "$wallpaperPath" "$randomUrl"
         gsettings set org.gnome.desktop.background picture-uri "file://$wallpaperPath"
@@ -129,7 +129,7 @@ do
 done
 
 printf "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
-read -r insthist
+read insthist
 if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]; then
     echo ""
     echo "install history:"
