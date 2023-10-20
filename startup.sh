@@ -7,7 +7,7 @@ clear
 
 while true
 do
-    printf "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
+    echo -e "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
     read insthist
     if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]; then
         echo ""
@@ -24,19 +24,19 @@ done
 ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
 
 if [ "$ipv6_setting" != "'disabled'" ]; then
-    printf "${GREEN}changing ipv6 to ipv4${NC}\n"
+    echo -e "${GREEN}changing ipv6 to ipv4${NC}\n"
     connection_name=$(nmcli -t -f NAME con show --active)
     nmcli connection modify "$connection_name" ipv6.method disabled
     sudo systemctl restart NetworkManager
     sleep 2
 fi
 
-printf "${GREEN}Install FIREWALL? (Y/N)${NC}"
+echo -e "${GREEN}Install FIREWALL? (Y/N)${NC}"
 read fwall
 if [ "$fwall" = "Y" ] || [ "$fwall" = "y" ]; then
     # setup basic firewall
     sudo apt install ufw -y
-    sudo ufw enable -y
+    sudo ufw enable
     sudo ufw limit 22/tcp
     sudo ufw allow 80/tcp
     sudo ufw allow 443/tcp
@@ -52,7 +52,7 @@ fi
 sudo apt install curl -y
 clear
 
-printf "${GREEN}Install WINDSCRIBE? (Y/N)${NC}"
+echo -e "${GREEN}Install WINDSCRIBE? (Y/N)${NC}"
 read wscribe
 if [ "$wscribe" = "Y" ] || [ "$wscribe" = "y" ]; then
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
@@ -65,7 +65,7 @@ else
     echo "SKIPPING..."
 fi
 
-printf "${GREEN}Install PORTMASTER? (Y/N)${NC}"
+echo -e "${GREEN}Install PORTMASTER? (Y/N)${NC}"
 read pmaster
 if [ "$pmaster" = "Y" ] || [ "$pmaster" = "y" ]; then
     sudo apt install libnetfilter-queue1 -y
@@ -78,7 +78,7 @@ else
     echo "SKIPPING..."
 fi
 
-printf "${GREEN}Install BRAVE-BROWSER? (Y/N)${NC}"
+echo -e "${GREEN}Install BRAVE-BROWSER? (Y/N)${NC}"
 read braveb
 if [ "$braveb" = "Y" ] || [ "$braveb" = "y" ]; then
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
@@ -91,7 +91,7 @@ else
     echo "SKIPPING..."
 fi
 
-printf "${GREEN}Install GUEST ADDITIONS? (Y/N)${NC}"
+echo -e "${GREEN}Install GUEST ADDITIONS? (Y/N)${NC}"
 read gadd
 if [ "$gadd" = "Y" ] || [ "$gadd" = "y" ]; then
     sudo apt install liburing2 -y
@@ -112,7 +112,7 @@ wallpaperUrls=$(curl -s "$githubRepoUrl")
 
 while true
 do
-    printf "${GREEN}Do you want to change the desktop wallpaper? (Y/N)${NC}"
+    echo -e "${GREEN}Do you want to change the desktop wallpaper? (Y/N)${NC}"
     read changeWallpaper
     if [ "$changeWallpaper" = "Y" ] || [ "$changeWallpaper" = "y" ]; then
         # Choose a random URL
@@ -128,7 +128,7 @@ do
     fi
 done
 
-printf "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
+echo -e "${GREEN}SHOW INSTALL HIST (Y/N)${NC}"
 read insthist
 if [ "$insthist" = "Y" ] || [ "$insthist" = "y" ]; then
     echo ""
