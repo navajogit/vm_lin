@@ -139,7 +139,7 @@ menu () {
         echo -e "\033[0;32m5.	BRAVE-BROWSER \033[0m"
         echo -e "\033[0;32m6.	GUEST ADDITIONS FOR VM \033[0m"
         echo -e "\033[0;32m7.	GIT \033[0m"
-        echo -e "\033[0;32m8.	APERANCE \033[0m"
+        echo -e "\033[0;32m8.	WALLPAPER \033[0m"
         echo ""
         echo -e "\033[0;32m9.	TOR BROWSER \033[0m"
         echo ""
