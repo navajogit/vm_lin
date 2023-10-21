@@ -84,7 +84,6 @@ gitinst () {
 }
 
 apperance () {
-# wallpapers
 githubRepoUrl="https://github.com/navajogit/vm_lin/raw/main/sample_list.txt"
 wallpaperUrls=$(curl -s "$githubRepoUrl")
 
