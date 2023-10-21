@@ -83,7 +83,7 @@ gitinst () {
 
 }
 
-aperance () {
+wallpaper () {
 # wallpapers
 githubRepoUrl="https://github.com/navajogit/vm_lin/raw/main/sample_list.txt"
 wallpaperUrls=$(curl -s "$githubRepoUrl")
@@ -165,7 +165,7 @@ menu () {
         elif [ ${option} -eq 7 ]; then 
             gitinst
         elif [ ${option} -eq 8 ]; then 
-            apperance
+            wallpaper
         elif [ ${option} -eq 9 ]; then 
             torinst
         elif [ ${option} -eq 10 ]; then 
