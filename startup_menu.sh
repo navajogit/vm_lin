@@ -160,7 +160,7 @@ then
 firewallinst && menu
 elif [ ${option} -eq 3 ]
 then 
-firewalliiinst && menu
+firewalliiinstall && menu
 elif [ ${option} -eq 5 ]
 then
 basicdeps && menu
