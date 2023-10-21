@@ -55,7 +55,7 @@ vpninstall () {
 
 }
 
-firewalliiinstall () {
+firewalliiinst () {
     sudo apt install libnetfilter-queue1 -y
     wget "https://updates.safing.io/latest/linux_amd64/packages/portmaster-installer.deb" -O ~/Downloads/portmaster.deb
     sudo dpkg -i ~/Downloads/portmaster.deb
@@ -124,67 +124,69 @@ installhist () {
 
 
 menu () {
-clear
-echo -e "\033[0;32mCHOOSE OPTIONS TO SETUPS:\033[0m"
-echo ""
-echo ""
-echo -e "\033[0;32m0.	UPDATE SYSTEM \033[0m"
-echo ""
-echo -e "\033[0;32m1.	IPV6 TO IPV4 \033[0m"
-echo -e "\033[0;32m2.	FIREWALL \033[0m"
-echo -e "\033[0;32m3.	FIREWALL II (PORTMASTER) \033[0m"
-echo -e "\033[0;32m4.	BASIC DEPS \033[0m"
-echo -e "\033[0;32m5.	BRAVE-BROWSER \033[0m"
-echo -e "\033[0;32m6.	GUEST ADDITIONS FOR VM \033[0m"
-echo -e "\033[0;32m7.	GIT \033[0m"
-echo -e "\033[0;32m8.	APERANCE \033[0m"
-echo ""
-echo -e "\033[0;32m9.	TOR BROWSER \033[0m"
-echo ""
-echo -e "\033[0;32m10.	OPTIONS 1-7 \033[0m"
-echo -e "\033[0;32m11.	ALL 0-8 \033[0m"
-echo ":"
-read option
+while true
+    do
+        clear
+        echo -e "\033[0;32mCHOOSE OPTIONS TO SETUPS:\033[0m"
+        echo ""
+        echo ""
+        echo -e "\033[0;32m0.	UPDATE SYSTEM \033[0m"
+        echo ""
+        echo -e "\033[0;32m1.	IPV6 TO IPV4 \033[0m"
+        echo -e "\033[0;32m2.	FIREWALL \033[0m"
+        echo -e "\033[0;32m3.	FIREWALL II (PORTMASTER) \033[0m"
+        echo -e "\033[0;32m4.	BASIC DEPS \033[0m"
+        echo -e "\033[0;32m5.	BRAVE-BROWSER \033[0m"
+        echo -e "\033[0;32m6.	GUEST ADDITIONS FOR VM \033[0m"
+        echo -e "\033[0;32m7.	GIT \033[0m"
+        echo -e "\033[0;32m8.	APERANCE \033[0m"
+        echo ""
+        echo -e "\033[0;32m9.	TOR BROWSER \033[0m"
+        echo ""
+        echo -e "\033[0;32m10.	OPTIONS 1-7 \033[0m"
+        echo -e "\033[0;32m11.	ALL 0-8 \033[0m"
+        echo ":"
+        read option
+       
+        if [ ${option} -eq 0 ]
+        then  
+            clear && updatesys && menu
+        elif [ ${option} -eq 1 ]
+            then 
+            ipvchange && menu
+        elif [ ${option} -eq 2 ]
+            then 
+            firewallinst && menu
+        elif [ ${option} -eq 3 ]
+            then 
+            firewalliiinst && menu
+        elif [ ${option} -eq 5 ]
+            then
+            basicdeps && menu
+        elif [ ${option} -eq 5 ]
+            then 
+            braveinst && menu
+        elif [ ${option} -eq 6 ]
+            then 
+            guestinst && menu
+        elif [ ${option} -eq 7 ]
+            then 
+            gitinst && menu
+        elif [ ${option} -eq 8 ]
+            then 
+            apperance && menu
+        elif [ ${option} -eq 9 ]
+            then 
+            torinst && menu
+        elif [ ${option} -eq 10 ]
+            then 
+            ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && menu
+        elif [ ${option} -eq 11 ]
+            then 
+updatesys && ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && torinst &&  menu
+        else
+            echo "wrong option"
+fi
+        
 }
 
-menu
-
-if [ ${option} -eq 0 ]
-then  
-clear && updatesys && menu
-elif [ ${option} -eq 1 ]
-then 
-ipvchange && menu
-elif [ ${option} -eq 2 ]
-then 
-firewallinst && menu
-elif [ ${option} -eq 3 ]
-then 
-firewalliiinstall && menu
-elif [ ${option} -eq 5 ]
-then
-basicdeps && menu
-elif [ ${option} -eq 5 ]
-then 
-braveinst && menu
-elif [ ${option} -eq 6 ]
-then 
-guestinst && menu
-elif [ ${option} -eq 7 ]
-then 
-gitinst && menu
-elif [ ${option} -eq 8 ]
-then 
-apperance && menu
-elif [ ${option} -eq 9 ]
-then 
-torinst && menu
-elif [ ${option} -eq 10 ]
-then 
-ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && menu
-elif [ ${option} -eq 11 ]
-then 
-updatesys && ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && torinst &&  menu
-else
-echo "wrong option"
-fi
