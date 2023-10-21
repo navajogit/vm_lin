@@ -133,8 +133,10 @@ torinst () {
 wget https://www.torproject.org/dist/torbrowser/13.0/tor-browser-linux-x86_64-13.0.tar.xz -O tor-browser-linux-x86_64-13.0.tar.xz
 tar -xf tor-browser-linux-x86_64-13.0.tar.xz
 chmod +x tor-browser-linux-x86_64-13.0.tar.xz
-~/tor-browser/start-tor-browser.desktop --register-app
-echo "alias tor='~/tor-browser/start-tor-browser.desktop'"
+cd ~/tor-browser
+./start-tor-browser.desktop --register-app
+echo "alias tor='~/tor-browser/start-tor-browser.desktop'" >> ~/.bashrc
+echo "alias tor='~/tor-browser/start-tor-browser.desktop'" >> ~/.zshrc
 }
 
 installhist () {
