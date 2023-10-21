@@ -179,3 +179,4 @@ menu () {
         read -n 1 -s
     done
 }
+menu
