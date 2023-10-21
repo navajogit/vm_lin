@@ -149,6 +149,7 @@ menu () {
     while true
     do
         clear
+        cd ~
         echo -e "\033[0;32mCHOOSE OPTIONS TO SETUPS:\033[0m"
         echo ""
         echo ""
