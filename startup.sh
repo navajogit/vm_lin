@@ -135,8 +135,8 @@ tar -xf tor-browser-linux-x86_64-13.0.tar.xz
 chmod +x tor-browser-linux-x86_64-13.0.tar.xz
 cd ~/tor-browser
 ./start-tor-browser.desktop --register-app
-echo "alias tor='~/tor-browser/start-tor-browser.desktop &'" >> ~/.bashrc
-echo "alias tor='~/tor-browser/start-tor-browser.desktop &'" >> ~/.zshrc
+echo "alias tor='cd tor-browser && ./start-tor-browser.desktop &'" >> ~/.bashrc
+echo "alias tor='cd tor-browser && ./start-tor-browser.desktop &'" >> ~/.zshrc
 }
 
 installhist () {
