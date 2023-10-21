@@ -83,7 +83,7 @@ gitinst () {
 
 }
 
-wallpaper () {
+apperance () {
 # wallpapers
 githubRepoUrl="https://github.com/navajogit/vm_lin/raw/main/sample_list.txt"
 wallpaperUrls=$(curl -s "$githubRepoUrl")
@@ -139,7 +139,7 @@ menu () {
         echo -e "\033[0;32m5.	BRAVE-BROWSER \033[0m"
         echo -e "\033[0;32m6.	GUEST ADDITIONS FOR VM \033[0m"
         echo -e "\033[0;32m7.	GIT \033[0m"
-        echo -e "\033[0;32m8.	WALLPAPER \033[0m"
+        echo -e "\033[0;32m8.	APPERANCE \033[0m"
         echo ""
         echo -e "\033[0;32m9.	TOR BROWSER \033[0m"
         echo ""
@@ -165,7 +165,7 @@ menu () {
         elif [ ${option} -eq 7 ]; then 
             gitinst
         elif [ ${option} -eq 8 ]; then 
-            wallpaper
+            apperance
         elif [ ${option} -eq 9 ]; then 
             torinst
         elif [ ${option} -eq 10 ]; then 
