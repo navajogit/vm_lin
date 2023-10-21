@@ -96,8 +96,9 @@ do
         # Choose a random URL
         randomUrl=$(shuf -n 1 <<< "$wallpaperUrls")
         wallpaperPath="/home/$USER/Pictures/wallpaper.jpg"
-        wget -O "$wallpaperPath" "$randomUrl"
+        wget -progress=bar:force -O "$wallpaperPath" "$randomUrl"
         gsettings set org.gnome.desktop.background picture-uri-dark "file://$wallpaperPath"
+        clear
         echo "DONE"
     else
         clear
