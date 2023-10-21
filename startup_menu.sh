@@ -84,7 +84,8 @@ gitinst () {
 }
 
 appearance () {
-githubRepoUrl="https://github.com/navajogit/vm_lin/raw/main/sample_list.txt"
+# wallpapers
+githubRepoUrl="https://raw.githubusercontent.com/navajogit/vm_lin/main/sample_list.txt"
 wallpaperUrls=$(curl -s "$githubRepoUrl")
 
 while true
@@ -104,7 +105,6 @@ do
         break
     fi
 done
-    
 }
 
 torinst () {
