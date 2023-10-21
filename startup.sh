@@ -1,49 +1,40 @@
 #!/bin/bash
 
-clear
+doner () {
+echo -e "\033[0;32mDONE \033[0m"
+}
+updatesys () {
+    sudo apt update -y
+    sudo apt upgrade -y
+}
 
-while true
-do
-    echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
-    read insthist
-    if [[ "$insthist" =~ ^[Yy]$ ]]; then
-        echo ""
-        echo "install history:"
-        cat /var/log/dpkg.log.1 /var/log/dpkg.log | grep " install " | nl
+
+
+ipvchange () {
+
+    ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
+
+    if [ "$ipv6_setting" != "'disabled'" ]; then
+        echo "Disabling IPv6 ..."    
+        gsettings set org.gnome.system.network ipv6-method 'disabled'    
+        echo " IPv6 'disabled'."
     else
-        clear
-        echo "DONE"
-        break
+        echo "IPv6 is set to 'disabled'."
     fi
-done
 
-# ipv6 to ipv4
+    nmcli connection modify "Wired connection 1" ipv6.method disabled
+    sudo systemctl restart NetworkManager
+    sleep 1
 
-ipv6_setting=$(gsettings get org.gnome.system.network ipv6-method)
+}
 
-if [ "$ipv6_setting" != "'disabled'" ]; then
-    echo "Zmienianie ustawienia IPv6 na 'disabled'..."    
-    gsettings set org.gnome.system.network ipv6-method 'disabled'    
-    echo "Ustawienie IPv6 zostało zmienione na 'disabled'."
-else
-    echo "Ustawienie IPv6 jest już ustawione na 'disabled'."
-fi
+basicdeps () {
+    sudo apt install curl -y
+    sudo apt install wget -y
 
-nmcli connection modify "Wired connection 1" ipv6.method disabled
+}
 
-
-sudo systemctl restart NetworkManager
-
-echo "'$connection_name' "
-
-sleep 1
-
-
-
-echo -e "\033[0;32mInstall FIREWALL? (Y/N)\033[0m"
-read fwall
-if [[ "$fwall" =~ ^[Yy]$ ]]; then
-    # setup basic firewall
+firewallinst () {
     sudo apt install ufw -y
     sudo ufw enable
     sudo ufw limit 22/tcp
@@ -52,79 +43,47 @@ if [[ "$fwall" =~ ^[Yy]$ ]]; then
     sudo ufw default deny incoming
     sudo ufw default allow outgoing
     sudo apt-get install git -y
-    echo "DONE"
-else
-    clear
-    echo "SKIPPING..."
-fi
 
-sudo apt install curl -y
-clear
+}
 
-echo -e "\033[0;32mInstall WINDSCRIBE? (Y/N)\033[0m"
-read wscribe
-if [[ "$wscribe" =~ ^[Yy]$ ]]; then
+
+vpninstall () {
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
     sudo dpkg -i ~/Downloads/windscribe.deb
     # setup windscribe
     xdg-open https://windscribe.com/signup?cpid=app_windows
-    echo "DONE"
-else
-    clear
-    echo "SKIPPING..."
-fi
 
-echo -e "\033[0;32mInstall PORTMASTER? (Y/N)\033[0m"
-read pmaster
-if [[ "$pmaster" =~ ^[Yy]$ ]]; then
+}
+
+firewalliiinst () {
     sudo apt install libnetfilter-queue1 -y
     wget "https://updates.safing.io/latest/linux_amd64/packages/portmaster-installer.deb" -O ~/Downloads/portmaster.deb
     sudo dpkg -i ~/Downloads/portmaster.deb
     sudo systemctl enable portmaster
-    echo "DONE"
-else
-    clear
-    echo "SKIPPING..."
-fi
 
-echo -e "\033[0;32mInstall BRAVE-BROWSER? (Y/N)\033[0m"
-read braveb
-if [[ "$braveb" =~ ^[Yy]$ ]]; then
+}
+
+braveinst () {
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     sudo apt update -y
     sudo apt install brave-browser -y
-    echo "DONE"
-else
-    clear
-    echo "SKIPPING..."
-fi
 
-echo -e "\033[0;32mInstall GUEST ADDITIONS? (Y/N)\033[0m"
-read gadd
-if [[ "$gadd" =~ ^[Yy]$ ]]; then
+}
+
+guestinst () {
     sudo apt install liburing2 -y
     sudo apt install qemu-guest-agent -y
     sudo apt-get install spice-vdagent -y
-    echo "DONE"
-else
-    clear
-    echo "SKIPPING..."
-fi
 
-echo -e "\033[0;32mInstall GIT? (Y/N)\033[0m"
-read giti
-if [[ "$giti" =~ ^[Yy]$ ]]; then
+}
+
+gitinst () {
     sudo apt install git -y
-    echo "DONE"
-else
-    clear
-    echo "SKIPPING..."
-fi
 
+}
 
-
-# wallpapers
+appearance () {
 githubRepoUrl="https://raw.githubusercontent.com/navajogit/vm_lin/main/sample_list.txt"
 wallpaperUrls=$(curl -s "$githubRepoUrl")
 
@@ -145,16 +104,79 @@ do
         break
     fi
 done
+    
+}
 
+torinst () {
+wget https://www.torproject.org/dist/torbrowser/13.0/tor-browser-linux-x86_64-13.0.tar.xz -O tor-browser-linux-x86_64-13.0.tar.xz
+tar -xf tor-browser-linux-x86_64-13.0.tar.xz
+chmod +x tor-browser-linux-x86_64-13.0.tar.xz
+echo "alias tor='~/tor-browser/start-tor-browser.desktop'"
+}
 
-
-echo -e "\033[0;32mSHOW INSTALL HIST (Y/N)\033[0m"
-read insthist
-if [[ "$insthist" =~ ^[Yy]$ ]]; then
+installhist () {
     echo ""
     echo "install history:"
     cat /var/log/dpkg.log.1 /var/log/dpkg.log | grep " install " | nl
-else
-    clear
-    echo "DONE"
-fi
+
+}
+
+
+menu () {
+    while true
+    do
+        clear
+        echo -e "\033[0;32mCHOOSE OPTIONS TO SETUPS:\033[0m"
+        echo ""
+        echo ""
+        echo -e "\033[0;32m0.	UPDATE SYSTEM \033[0m"
+        echo ""
+        echo -e "\033[0;32m1.	IPV6 TO IPV4 \033[0m"
+        echo -e "\033[0;32m2.	FIREWALL \033[0m"
+        echo -e "\033[0;32m3.	FIREWALL II (PORTMASTER) \033[0m"
+        echo -e "\033[0;32m4.	BASIC DEPS \033[0m"
+        echo -e "\033[0;32m5.	BRAVE-BROWSER \033[0m"
+        echo -e "\033[0;32m6.	GUEST ADDITIONS FOR VM \033[0m"
+        echo -e "\033[0;32m7.	GIT \033[0m"
+        echo -e "\033[0;32m8.	APPEARANCE \033[0m"
+        echo ""
+        echo -e "\033[0;32m9.	TOR BROWSER \033[0m"
+        echo ""
+        echo -e "\033[0;32m10.	OPTIONS 1-7 \033[0m"
+        echo -e "\033[0;32m11.	ALL 0-8 \033[0m"
+        echo ":"
+        read option
+       
+        if [ ${option} -eq 0 ]; then
+            clear && updatesys
+        elif [ ${option} -eq 1 ]; then
+            ipvchange
+        elif [ ${option} -eq 2 ]; then
+            firewallinst
+        elif [ ${option} -eq 3 ]; then
+            firewalliiinst
+        elif [ ${option} -eq 4 ]; then 
+            basicdeps
+        elif [ ${option} -eq 5 ]; then 
+            braveinst
+        elif [ ${option} -eq 6 ]; then 
+            guestinst
+        elif [ ${option} -eq 7 ]; then 
+            gitinst
+        elif [ ${option} -eq 8 ]; then 
+            appearance
+        elif [ ${option} -eq 9 ]; then 
+            torinst
+        elif [ ${option} -eq 10 ]; then 
+            ipvchange && firewallinst && firewalliiinst && basicdeps && braveinst && guestinst && gitinst && appearance
+        elif [ ${option} -eq 11 ]; then 
+            updatesys && ipvchange && firewallinst && firewalliiinst && basicdeps && braveinst && guestinst && gitinst && appearance && torinst
+        else
+            echo "wrong option"
+        fi
+        echo "Press any key to continue..."
+        read -n 1 -s
+    done
+}
+
+menu
