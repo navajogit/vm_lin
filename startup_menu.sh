@@ -124,7 +124,7 @@ installhist () {
 
 
 menu () {
-while true
+    while true
     do
         clear
         echo -e "\033[0;32mCHOOSE OPTIONS TO SETUPS:\033[0m"
@@ -148,45 +148,34 @@ while true
         echo ":"
         read option
        
-        if [ ${option} -eq 0 ]
-        then  
-            clear && updatesys && menu
-        elif [ ${option} -eq 1 ]
-            then 
-            ipvchange && menu
-        elif [ ${option} -eq 2 ]
-            then 
-            firewallinst && menu
-        elif [ ${option} -eq 3 ]
-            then 
-            firewalliiinst && menu
-        elif [ ${option} -eq 5 ]
-            then
-            basicdeps && menu
-        elif [ ${option} -eq 5 ]
-            then 
-            braveinst && menu
-        elif [ ${option} -eq 6 ]
-            then 
-            guestinst && menu
-        elif [ ${option} -eq 7 ]
-            then 
-            gitinst && menu
-        elif [ ${option} -eq 8 ]
-            then 
-            apperance && menu
-        elif [ ${option} -eq 9 ]
-            then 
-            torinst && menu
-        elif [ ${option} -eq 10 ]
-            then 
-            ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && menu
-        elif [ ${option} -eq 11 ]
-            then 
-updatesys && ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && torinst &&  menu
+        if [ ${option} -eq 0 ]; then
+            clear && updatesys
+        elif [ ${option} -eq 1 ]; then
+            ipvchange
+        elif [ ${option} -eq 2 ]; then
+            firewallinst
+        elif [ ${option} -eq 3 ]; then
+            firewalliiinst
+        elif [ ${option} -eq 4 ]; then 
+            basicdeps
+        elif [ ${option} -eq 5 ]; then 
+            braveinst
+        elif [ ${option} -eq 6 ]; then 
+            guestinst
+        elif [ ${option} -eq 7 ]; then 
+            gitinst
+        elif [ ${option} -eq 8 ]; then 
+            apperance
+        elif [ ${option} -eq 9 ]; then 
+            torinst
+        elif [ ${option} -eq 10 ]; then 
+            ipvchange && firewallinst && firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance
+        elif [ ${option} -eq 11 ]; then 
+            updatesys && ipvchange && firewallinst && firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && torinst
         else
             echo "wrong option"
-fi
-        
+        fi
+        echo "Press any key to continue..."
+        read -n 1 -s
+    done
 }
-
