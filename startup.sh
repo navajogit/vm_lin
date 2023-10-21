@@ -6,6 +6,7 @@ echo -e "\033[0;32mDONE \033[0m"
 updatesys () {
     sudo apt update -y
     sudo apt upgrade -y
+    sudo apt autoremove -y
 }
 
 
@@ -47,11 +48,10 @@ firewallinst () {
 }
 
 
-vpninstall () {
+vpninst () {
     wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
-    sudo dpkg -i ~/Downloads/windscribe.deb
-    # setup windscribe
-    xdg-open https://windscribe.com/signup?cpid=app_windows
+    sudo dpkg -i ~/Downloads/windscribe.deb &&
+    shred -uz ~/Downloads/windscribe.deb
 
 }
 
@@ -60,6 +60,7 @@ firewalliiinst () {
     wget "https://updates.safing.io/latest/linux_amd64/packages/portmaster-installer.deb" -O ~/Downloads/portmaster.deb
     sudo dpkg -i ~/Downloads/portmaster.deb
     sudo systemctl enable portmaster
+    shred -uzv ~/Downloads/portmaster.deb
 
 }
 
@@ -81,6 +82,26 @@ guestinst () {
 gitinst () {
     sudo apt install git -y
 
+}
+
+aescryptinst () {
+if ! type "aescrypt" &>/dev/null; then
+    clear
+    echo "Aescrypt is not installed. Installing..."
+    cd ~/Downloads
+    wget https://github.com/navajogit/aescrypt/raw/main/aescrypt-3.16.tgz &&
+    tar -xzf aescrypt-3.16.tgz &&
+    cd aescrypt-3.16
+    make &&
+    sudo make install &&
+    shred -uz ~/Downloads/aescrypt-3.16.tgz
+    rm -rf ~/Downloads/aescrypt/
+    cd ~
+    echo "Aescrypt was installed."
+else
+    clear
+    echo "Aescrypt is already installed on your system."
+fi
 }
 
 appearance () {
@@ -112,6 +133,7 @@ torinst () {
 wget https://www.torproject.org/dist/torbrowser/13.0/tor-browser-linux-x86_64-13.0.tar.xz -O tor-browser-linux-x86_64-13.0.tar.xz
 tar -xf tor-browser-linux-x86_64-13.0.tar.xz
 chmod +x tor-browser-linux-x86_64-13.0.tar.xz
+~/tor-browser/start-tor-browser.desktop --register-app
 echo "alias tor='~/tor-browser/start-tor-browser.desktop'"
 }
 
@@ -136,15 +158,19 @@ menu () {
         echo -e "\033[0;32m2.	FIREWALL \033[0m"
         echo -e "\033[0;32m3.	FIREWALL II (PORTMASTER) \033[0m"
         echo -e "\033[0;32m4.	BASIC DEPS \033[0m"
-        echo -e "\033[0;32m5.	BRAVE-BROWSER \033[0m"
-        echo -e "\033[0;32m6.	GUEST ADDITIONS FOR VM \033[0m"
-        echo -e "\033[0;32m7.	GIT \033[0m"
-        echo -e "\033[0;32m8.	APPEARANCE \033[0m"
+        echo -e "\033[0;32m5.	VPN \033[0m"
+        echo -e "\033[0;32m6.	BRAVE-BROWSER \033[0m"
+        echo -e "\033[0;32m7.	GUEST ADDITIONS FOR VM \033[0m"
+        echo -e "\033[0;32m8.	GIT \033[0m"
+        echo -e "\033[0;32m9.	AESCRYPT \033[0m"
+        echo -e "\033[0;32m10.	APPEARANCE \033[0m"
         echo ""
-        echo -e "\033[0;32m9.	TOR BROWSER \033[0m"
+        echo -e "\033[0;32m11.	TOR BROWSER \033[0m"
         echo ""
-        echo -e "\033[0;32m10.	OPTIONS 1-7 \033[0m"
-        echo -e "\033[0;32m11.	ALL 0-8 \033[0m"
+        echo -e "\033[0;32m12.	OPTIONS 1-11 \033[0m"
+        echo -e "\033[0;32m13.	ALL 0-11 \033[0m"
+        echo ""
+        echo -e "\033[0;32m14.	SHOW INSTALL HISTORY \033[0m"
         echo ":"
         read option
        
@@ -158,20 +184,26 @@ menu () {
             firewalliiinst
         elif [ ${option} -eq 4 ]; then 
             basicdeps
-        elif [ ${option} -eq 5 ]; then 
-            braveinst
+        elif [ ${option} -eq 5 ]; then
+            vpninst
         elif [ ${option} -eq 6 ]; then 
-            guestinst
+            braveinst
         elif [ ${option} -eq 7 ]; then 
-            gitinst
+            guestinst
         elif [ ${option} -eq 8 ]; then 
-            appearance
+            gitinst
         elif [ ${option} -eq 9 ]; then 
-            torinst
+            aescryptinst
         elif [ ${option} -eq 10 ]; then 
-            ipvchange && firewallinst && firewalliiinst && basicdeps && braveinst && guestinst && gitinst && appearance
+            appearance
         elif [ ${option} -eq 11 ]; then 
-            updatesys && ipvchange && firewallinst && firewalliiinst && basicdeps && braveinst && guestinst && gitinst && appearance && torinst
+            torinst
+        elif [ ${option} -eq 12 ]; then 
+            ipvchange && firewallinst && firewalliiinst && basicdeps && vpninst && braveinst && guestinst && gitinst && aescryptinst && appearance && torinst
+        elif [ ${option} -eq 13 ]; then 
+            updatesys && ipvchange && firewallinst && firewalliiinst && basicdeps && vpninst && braveinst && guestinst && gitinst && aescryptinst && appearance && torinst 
+        elif [ ${option} -eq 14 ]; then
+            installhist
         else
             echo "wrong option"
         fi
