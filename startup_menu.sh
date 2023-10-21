@@ -149,30 +149,42 @@ read option
 
 menu
 
-if [ ${option} -eq 0 ] then  
+if [ ${option} -eq 0 ]
+then  
 clear && updatesys && menu
-elif [ ${option} -eq 1 ] then 
+elif [ ${option} -eq 1 ]
+then 
 ipvchange && menu
-elif [ ${option} -eq 2 ] then 
+elif [ ${option} -eq 2 ]
+then 
 firewallinst && menu
-elif [ ${option} -eq 3 ] then 
+elif [ ${option} -eq 3 ]
+then 
 firewalliiinst && menu
-elif [ ${option} -eq 5 ] then
+elif [ ${option} -eq 5 ]
+then
 basicdeps && menu
-elif [ ${option} -eq 5 ] then 
+elif [ ${option} -eq 5 ]
+then 
 braveinst && menu
-elif [ ${option} -eq 6 ] then 
+elif [ ${option} -eq 6 ]
+then 
 guestinst && menu
-elif [ ${option} -eq 7 ] then 
+elif [ ${option} -eq 7 ]
+then 
 gitinst && menu
-elif [ ${option} -eq 8 ] then 
+elif [ ${option} -eq 8 ]
+then 
 apperance && menu
-elif [ ${option} -eq 9 ] then 
+elif [ ${option} -eq 9 ]
+then 
 torinst && menu
-elif [ ${option} -eq 10 ] then 
+elif [ ${option} -eq 10 ]
+then 
 ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && menu
-elif [ ${option} -eq 11 ] then 
-updatesys && ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && torinst && menu
+elif [ ${option} -eq 11 ]
+then 
+updatesys && ipvchange && firewallinst &&firewalliiinst && basicdeps && braveinst && guestinst && gitinst && apperance && torinst &&  menu
 else
 echo "wrong option"
 fi
