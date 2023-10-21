@@ -145,8 +145,6 @@ echo -e "\033[0;32m10.	OPTIONS 1-7 \033[0m"
 echo -e "\033[0;32m11.	ALL 0-8 \033[0m"
 echo -n ""
 read option
-}
-
 menu
 
 if [ ${option} -eq 0 ]
@@ -188,3 +186,7 @@ updatesys && ipvchange && firewallinst &&firewalliiinst && basicdeps && braveins
 else
 echo "wrong option"
 fi
+
+}
+
+
