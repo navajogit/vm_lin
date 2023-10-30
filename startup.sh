@@ -49,7 +49,7 @@ firewallinst () {
 
 
 vpninst () {
-    wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.6.14_amd64.deb" -O ~/Downloads/windscribe.deb
+    wget "https://windscribe.com/install/desktop/linux_deb_x64/windscribe_2.7.14_amd64.deb" -O ~/Downloads/windscribe.deb
     sudo dpkg -i ~/Downloads/windscribe.deb &&
     shred -uz ~/Downloads/windscribe.deb
 
