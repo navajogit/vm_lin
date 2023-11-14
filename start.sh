@@ -1,6 +1,7 @@
 #!/bin/bash
 
 gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default | awk -F \' '{print $2}')/ font 'Ubuntu Mono 10'
+gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default | awk -F \' '{print $2}')/ visible-name "''"
 
 doner () {
 echo -e "\033[0;32mDONE \033[0m"
