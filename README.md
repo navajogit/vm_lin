@@ -12,11 +12,11 @@ git clone https://github.com/navajogit/vm_lin
 cd vm_lin
 
 # allow to execute
-chmod +x startup
+chmod +x startup.sh
 clear
 
 # run 
-./startup
+./startup.sh
 
 ```
 
@@ -25,7 +25,7 @@ clear
 ```
 # clone this repo:
 git clone https://github.com/navajogit/vm_lin
-sudo mv vm_lin/startup /usr/local/bin/
+sudo mv vm_lin/startup.sh /usr/local/bin/startup
 rm -rf vm_lin/
 
 # Allow execution:
