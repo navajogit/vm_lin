@@ -1,4 +1,9 @@
-# As usual old tests
+# As usual old tests / how works vm_lin startup
+
+## Install git
+```
+sudo apt install git
+```
 
 ## First way to run startup:
 ```
