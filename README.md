@@ -2,8 +2,9 @@
 
 
 ```
-# download startup 
-wget https://github.com/navajogit/vm_lin/blob/main/startup
+# clone this repo:
+git clone https://github.com/navajogit/vm_lin
+cd vm_lin
 
 # allow to execute
 chmod +x startup
