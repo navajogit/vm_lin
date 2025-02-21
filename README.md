@@ -1,6 +1,6 @@
 # As usual old tests
 
-## 1. way to run startup:
+## First way to run startup:
 ```
 # clone this repo:
 git clone https://github.com/navajogit/vm_lin
@@ -15,7 +15,7 @@ clear
 
 ```
 
-# 2 way to run startup with installing it to system scripts (sudo):
+## Seccond way to run startup with installing it to system scripts (sudo):
 
 ```
 # clone this repo:
