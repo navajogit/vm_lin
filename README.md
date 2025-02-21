@@ -8,6 +8,7 @@ cd vm_lin
 
 # allow to execute
 chmod +x startup
+clear
 
 # run 
 ./startup
